@@ -5,6 +5,7 @@ from inputimeout import inputimeout, TimeoutOccurred
 import tabulate, copy, time, datetime, requests, sys, os, random
 from captcha import captcha_builder_manual, captcha_builder_auto
 import uuid
+from ratelimit import handle_rate_limited
 
 BOOKING_URL = "https://cdn-api.co-vin.in/api/v2/appointment/schedule"
 BENEFICIARIES_URL = "https://cdn-api.co-vin.in/api/v2/appointment/beneficiaries"
@@ -222,11 +223,11 @@ def collect_user_details(request_header):
     print(
         "\n================================= Additional Info =================================\n"
     )
-
+	minimum_slots = '1'
     # Set filter condition
-    minimum_slots = input(
-        f"Filter out centers with availability less than ? Minimum {len(beneficiary_dtls)} : "
-    )
+    #minimum_slots = input(
+    #    f"Filter out centers with availability less than ? Minimum {len(beneficiary_dtls)} : "
+    #)
     if minimum_slots:
         minimum_slots = (
             int(minimum_slots)
@@ -360,7 +361,11 @@ def check_calendar_by_district(
                 headers=request_header,
             )
 
-            if resp.status_code == 401:
+            if resp.status_code == 403 or resp.status_code == 429:
+                handle_rate_limited()
+                return False
+
+            elif resp.status_code == 401:
                 print("TOKEN INVALID")
                 return False
 
@@ -426,7 +431,11 @@ def check_calendar_by_pincode(
                 base_url.format(location["pincode"], start_date), headers=request_header
             )
 
-            if resp.status_code == 401:
+            if resp.status_code == 403 or resp.status_code == 429:
+                handle_rate_limited()
+                return False
+
+            elif resp.status_code == 401:
                 print("TOKEN INVALID")
                 return False
 
@@ -497,7 +506,11 @@ def book_appointment(request_header, details, mobile, generate_captcha_pref):
             print(f"Booking Response Code: {resp.status_code}")
             print(f"Booking Response : {resp.text}")
 
-            if resp.status_code == 401:
+            if resp.status_code == 403 or resp.status_code == 429:
+                handle_rate_limited()
+                pass
+
+            elif resp.status_code == 401:
                 print("TOKEN INVALID")
                 return 0
 
@@ -753,9 +766,9 @@ def get_vaccine_preference():
         "It seems you're trying to find a slot for your first dose. Do you have a vaccine preference?"
     )
     preference = input(
-        "Enter 0 for No Preference, 1 for COVISHIELD, 2 for COVAXIN, or 3 for SPUTNIK V. Default 0 : "
+        "Enter 0 for No Preference, 1 for COVISHIELD, 2 for COVAXIN, or 3 for SPUTNIK V. Default 1 : "
     )
-    preference = int(preference) if preference and int(preference) in [0, 1, 2, 3] else 0
+    preference = int(preference) if preference and int(preference) in [0, 1, 2, 3] else 1
 
     if preference == 1:
         return "COVISHIELD"
@@ -1014,6 +1027,8 @@ def clear_bucket_and_send_OTP(storage_url, mobile, request_header):
     else:
         print("Unable to Create OTP")
         print(txnId.text)
+        if txnId.status_code == 403 or txnId.status_code == 429:
+            handle_rate_limited()
         time.sleep(5)  # Saftey net againt rate limit
         txnId = None
 
@@ -1124,6 +1139,8 @@ def generate_token_OTP_manual(mobile, request_header):
             else:
                 print('Unable to Generate OTP')
                 print(txnId.status_code, txnId.text)
+                if txnId.status_code == 403 or txnId.status_code == 429:
+                    handle_rate_limited()
 
                 retry = input(f"Retry with {mobile} ? (y/n Default y): ")
                 retry = retry if retry else 'y'
