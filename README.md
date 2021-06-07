@@ -45,11 +45,11 @@ If you want to book only for a specific day, set PICKONSPECIFICDATEONLY on Line 
     - [Third-Party Package Dependency](#third-party-package-dependency)
     - [Steps](#steps)
     - [How to run on windows](#how-to-run-on-windows)
-  - [Troubleshooting common problems](#troubleshooting-common-problems)
 
 
-I removed the auotmatic OTP filler.
-Need to fill it manually.
+
+### I removed the auotmatic OTP filler.
+### Need to fill it manually.
 
 ## COVID-19 Vaccination Slot Booking Script
 
