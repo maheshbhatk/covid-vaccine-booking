@@ -1,4 +1,6 @@
 
+### I removed the automatic OTP filler.
+### So, need to fill it manually.
 
 
 <h1 align="center"> Bombardier Fully Automated COVID-19 Vaccination Slot Booking Script</h1>
@@ -39,8 +41,6 @@
 
 
 
-### I removed the automatic OTP filler.
-### So, need to fill it manually.
 
 ## COVID-19 Vaccination Slot Booking Script
 
