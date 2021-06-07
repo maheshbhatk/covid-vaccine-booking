@@ -115,11 +115,11 @@ def confirm_and_proceed(collected_details):
 
 def save_user_info(filename, details):
     print(
-        "\n================================= Save Info =================================\n"
-    )
-    save_info = input(
-        "Would you like to save this as a JSON file for easy use next time?: (y/n Default y): "
-    )
+        "\n================================= Save Info =================================\n")
+    save_info="n"
+    #save_info = input(
+    #    "Would you like to save this as a JSON file for easy use next time?: (y/n Default y): "
+    #)
     save_info = save_info if save_info else "y"
     if save_info == "y":
         with open(filename, "w") as f:
@@ -200,14 +200,15 @@ def collect_user_details(request_header):
         "\n================================= Location Info =================================\n"
     )
     # get search method to use
-    search_option = input(
-        """Search by Pincode? Or by State/District Or Smart search State/District for selected Pincodes ? \nEnter 1 for Pincode or 2 for State/District or 3 for State/District filter by Pincodes (Optimized for rate-limit) (Default 2): """
-    )
-
-    if not search_option or int(search_option) not in [1, 2, 3]:
-        search_option = 2
-    else:
-        search_option = int(search_option)
+    #search_option = input(
+    #    """Search by Pincode? Or by State/District Or Smart search State/District for selected Pincodes ? \nEnter 1 for Pincode or 2 for State/District or 3 for State/District filter by Pincodes (Optimized for rate-limit) (Default 2): """
+    #)
+    search_option = 2
+	
+    #if not search_option or int(search_option) not in [1, 2, 3]:
+    #    search_option = 2
+    #else:
+    #   search_option = int(search_option)
 
     pin_code_location_dtls = []
     if search_option == 3:
@@ -223,7 +224,7 @@ def collect_user_details(request_header):
     print(
         "\n================================= Additional Info =================================\n"
     )
-	minimum_slots = '1'
+    minimum_slots='1'
     # Set filter condition
     #minimum_slots = input(
     #    f"Filter out centers with availability less than ? Minimum {len(beneficiary_dtls)} : "
@@ -238,10 +239,10 @@ def collect_user_details(request_header):
         minimum_slots = len(beneficiary_dtls)
 
     # Get refresh frequency
-    refresh_freq = input(
-        "How often do you want to refresh the calendar (in seconds)? Default 10. Minimum 5. (You might be blocked if the value is too low, in that case please try after a while with a lower frequency) : "
-    )
-
+    #refresh_freq = input(
+    #   "How often do you want to refresh the calendar (in seconds)? Default 10. Minimum 5. (You might be blocked if the value is too low, in that case please try after a while with a lower frequency) : "
+    #)
+    refresh_freq=10
     refresh_freq = int(refresh_freq) if refresh_freq and int(refresh_freq) >= 1 else 15
     
     
@@ -826,8 +827,9 @@ def get_districts(request_header):
             tmp = {"state": state["state_name"]}
             refined_states.append(tmp)
 
-        display_table(refined_states)
-        state = int(input("\nEnter State index: "))
+        #display_table(refined_states)
+        #state = int(input("\nEnter State index: "))
+        state=17
         state_id = states[state - 1]["state_id"]
 
         districts = requests.get(
@@ -843,10 +845,11 @@ def get_districts(request_header):
                 tmp = {"district": district["district_name"]}
                 refined_districts.append(tmp)
 
-            display_table(refined_districts)
-            reqd_districts = input(
-                "\nEnter comma separated index numbers of districts to monitor : "
-            )
+            #display_table(refined_districts)
+            #reqd_districts = input(
+            #    "\nEnter comma separated index numbers of districts to monitor : "
+            #)
+            reqd_districts='3,4'
             districts_idx = [int(idx) - 1 for idx in reqd_districts.split(",")]
             reqd_districts = [
                 {
