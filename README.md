@@ -1,12 +1,3 @@
-Original script from the below source. This script has been modified to pick only hospitals near JP nagar.
-
-The modification can be seen at src/utils.py at Line 703. 
-```
-centerIds = [566035,604475,606551,583010,567221,565161]
-```
-Currently only Apollo Jayanagr, Malathi Manipal Jayanagar, Fortis Bannerghatta, Apollo Bannerghatta and Apollo Cradle will be booked. Add the centerIds into this array to pick only centers that you want. If you want to book ANY hospital in the selected district, set PICKMYCENTERONLY to "False". 
-
-If you want to book only for a specific day, set PICKONSPECIFICDATEONLY on Line 704 to True, and set the date in PICKONDATE. 
 
 
 
