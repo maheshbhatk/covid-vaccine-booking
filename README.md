@@ -21,7 +21,7 @@ If you want to book only for a specific day, set PICKONSPECIFICDATEONLY on Line 
 </div>
 
 ## Quickstart Guide
-**Instructions to follow on your laptop and phone below. To fetch OTP automatically, Step 2 is compulsory**
+**Instructions to follow on your laptop below. 
 
 ### 1. On your laptop
 1. Make sure [Python 3.8+](https://python.org) is installed.
@@ -48,8 +48,8 @@ If you want to book only for a specific day, set PICKONSPECIFICDATEONLY on Line 
 
 
 
-### I removed the auotmatic OTP filler.
-### Need to fill it manually.
+### I removed the automatic OTP filler.
+### So, need to fill it manually.
 
 ## COVID-19 Vaccination Slot Booking Script
 
