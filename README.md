@@ -2,6 +2,13 @@
 ### I removed the automatic OTP filler.
 ### So, need to fill it manually.
 
+# Also, it is set for booking at Bengaluru only.
+
+
+To set for another City, go to src/utils.py 
+comment line no: 832 and uncomment previous 2 lines.
+comment line no: 852 and uncomment previous 4 lines.
+This is a forked content and i am not the owner of it.
 
 <h1 align="center"> Bombardier Fully Automated COVID-19 Vaccination Slot Booking Script</h1>
 
